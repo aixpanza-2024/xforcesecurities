@@ -10,16 +10,19 @@ const SITE_NAME    = 'X Force Securities and Facility Management';
 const PHONE_DISPLAY = '+91 70123 72501';
 const PHONE_LINK    = 'tel:+917012372501';
 const WHATSAPP_LINK = 'https://wa.me/917012372501';
-const EMAIL         = 'xforcetvm@gmail.com';
+const EMAIL         = 'info@xforcesecurities.com';
 
 // Enquiry form: every enquiry is saved to ENQUIRY_FILE, then emailed to ENQUIRY_EMAIL.
 const ENQUIRY_FILE  = __DIR__ . '/../data/enquiries.csv';
 const ENQUIRY_EMAIL = EMAIL;
 
-// Sender address for enquiry emails. Set this to an address on your own domain
-// once the site is live, e.g. 'website@yourdomain.com'. Leave empty to use
-// no-reply@<current host name>.
-const MAIL_FROM = '';
+// Outgoing mail server. Enquiry emails are sent from SMTP_USER. The password is
+// kept in includes/smtp-password.php, which git ignores so it never reaches
+// GitHub; copy smtp-password.example.php to create it on each server.
+const SMTP_HOST          = 'mail.xforcesecurities.com';
+const SMTP_PORT          = 465; // SSL
+const SMTP_USER          = 'info@xforcesecurities.com';
+const SMTP_PASSWORD_FILE = __DIR__ . '/smtp-password.php';
 
 $offices = [
     [

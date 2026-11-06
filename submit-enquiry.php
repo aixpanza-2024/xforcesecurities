@@ -10,6 +10,7 @@
  */
 
 require __DIR__ . '/includes/config.php';
+require __DIR__ . '/includes/mailer.php';
 
 start_session();
 
@@ -119,9 +120,6 @@ flock($file, LOCK_UN);
 fclose($file);
 
 // Email it. A failure here is logged, because the enquiry is already saved.
-$host = preg_replace('/[^a-z0-9.\-]/i', '', $_SERVER['SERVER_NAME'] ?? '') ?: 'localhost';
-$from = MAIL_FROM !== '' ? MAIL_FROM : 'no-reply@' . $host;
-
 $body = "New enquiry from the website\n\n"
     . "Date: {$submittedAt}\n"
     . "Name: {$enquiry['name']}\n"
@@ -130,14 +128,10 @@ $body = "New enquiry from the website\n\n"
     . "Service: {$enquiry['service']}\n\n"
     . "Requirement:\n" . ($enquiry['requirement'] ?: '-') . "\n";
 
-$headers = [
-    'From'         => SITE_NAME . " <{$from}>",
-    'MIME-Version' => '1.0',
-    'Content-Type' => 'text/plain; charset=UTF-8',
-];
-
-if (!@mail(ENQUIRY_EMAIL, 'New website enquiry: ' . $enquiry['service'], $body, $headers)) {
-    error_log('Enquiry form: email could not be sent. The enquiry was saved to ' . ENQUIRY_FILE);
+try {
+    send_mail(ENQUIRY_EMAIL, 'New website enquiry: ' . $enquiry['service'], $body);
+} catch (Throwable $error) {
+    error_log('Enquiry form: email could not be sent (' . $error->getMessage() . '). The enquiry was saved to ' . ENQUIRY_FILE);
 }
 
 respond(true, 'Thank you, ' . $enquiry['name'] . '. Our team will get back to you with a deployment plan.');

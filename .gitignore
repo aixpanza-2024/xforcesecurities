@@ -1,3 +1,6 @@
 # Saved enquiries hold customer names and phone numbers. Keep them off GitHub.
 data/*
 !data/.htaccess
+
+# SMTP password for the enquiry emails. Create it on each server from the example file.
+includes/smtp-password.php
