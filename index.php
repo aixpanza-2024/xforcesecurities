@@ -17,6 +17,15 @@ $oldValue  = fn (string $key): string => e($old[$key] ?? '');
 $isInvalid = fn (string $key): string => isset($errors[$key]) ? ' is-invalid' : '';
 
 $clients = array_merge(...array_values($clientGroups));
+
+// The Managing Director's photo is shown once a file is added at this path.
+$mdPhoto = null;
+foreach (['jpg', 'jpeg', 'png', 'webp'] as $extension) {
+    if (is_file(__DIR__ . "/assets/images/managing-director.$extension")) {
+        $mdPhoto = "assets/images/managing-director.$extension";
+        break;
+    }
+}
 ?>
 <!doctype html>
 <html lang="en">
@@ -109,31 +118,33 @@ $clients = array_merge(...array_values($clientGroups));
         </div>
     </div>
 
-    <!-- About -->
+    <!-- About: message from the Managing Director -->
     <section class="section" id="about">
         <div class="container">
-            <div class="row gy-4">
+            <div class="row gy-5 align-items-center">
                 <div class="col-lg-4" data-reveal="from-left">
-                    <p class="eyebrow">About Us</p>
-                    <h2 class="section-title">One partner for the safety and upkeep of your premises.</h2>
+                    <figure class="md-figure">
+                        <div class="md-photo">
+                            <?php if ($mdPhoto): ?>
+                                <img src="<?= e($mdPhoto) ?>" alt="<?= e(MD_NAME) ?>, <?= e(MD_TITLE) ?>" loading="lazy">
+                            <?php else: ?>
+                                <span class="md-photo-placeholder" aria-hidden="true"><i class="bi bi-person"></i></span>
+                            <?php endif; ?>
+                        </div>
+                        <figcaption>
+                            <span class="md-name"><?= e(MD_NAME) ?></span>
+                            <span class="md-title"><?= e(MD_TITLE) ?></span>
+                        </figcaption>
+                    </figure>
                 </div>
-                <div class="col-lg-8 about-body">
-                    <p data-reveal="from-right">X Force Securities and Facility Management supplies trained manpower to institutions and businesses that need their premises secure, clean and running smoothly every day.</p>
-                    <p data-reveal="from-right" style="--i: 1">Whether you need a single guard at the gate or a complete team of security and housekeeping staff, we plan the deployment around your site and keep a supervisor accountable for it.</p>
-                    <div class="row g-3 mt-3">
-                        <div class="col-sm-6" data-reveal="from-left">
-                            <div class="fact-card">
-                                <h3>Every kind of premises</h3>
-                                <p>Hospitals, colleges, schools, hotels, malls, banks, trusts and apartments</p>
-                            </div>
-                        </div>
-                        <div class="col-sm-6" data-reveal="from-left" style="--i: 1">
-                            <div class="fact-card fact-card-gold">
-                                <h3>Five services</h3>
-                                <p>services under one contract — from security to complete facility management</p>
-                            </div>
-                        </div>
-                    </div>
+                <div class="col-lg-7 offset-lg-1" data-reveal="from-right" style="--i: 1">
+                    <p class="eyebrow eyebrow-line">Message from the Managing Director</p>
+                    <blockquote class="md-quote">
+                        <p class="md-lead">At X FORCE Securities and Facility Management, we believe that trust, discipline and commitment are the foundation of every successful service relationship.</p>
+                        <p>With our roots in the security industry dating back to 2007, we have built our journey around understanding our clients’ needs and delivering dependable manpower and facility management solutions.</p>
+                        <p>Our commitment is to provide professional, responsible and reliable services while maintaining the highest standards of integrity and customer satisfaction.</p>
+                        <p>We sincerely thank our clients, employees and well-wishers for their continued trust and support. We look forward to building stronger partnerships and serving you better.</p>
+                    </blockquote>
                 </div>
             </div>
         </div>

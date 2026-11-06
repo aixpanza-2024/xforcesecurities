@@ -467,34 +467,116 @@ a {
     }
 }
 
-/* About */
-.about-body > p {
+/* About: message from the Managing Director */
+.md-figure {
+    max-width: 360px;
+    margin: 0 auto;
+}
+
+.md-photo {
+    padding: 12px;
+    border: 1px solid var(--line-strong);
+}
+
+.md-photo img,
+.md-photo-placeholder {
+    display: block;
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    border-bottom: 4px solid var(--gold);
+}
+
+.md-photo img {
+    object-fit: cover;
+}
+
+.md-photo-placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background:
+        radial-gradient(circle at 50% 120%, rgba(201, 151, 58, .25), transparent 60%),
+        var(--ink);
+    color: #4a4a52;
+    font-size: clamp(96px, 12vw, 140px);
+}
+
+.md-figure figcaption {
+    padding-top: 20px;
+    text-align: center;
+}
+
+.md-name {
+    display: block;
+    font-family: var(--font-serif);
+    font-size: 28px;
+    line-height: 1.2;
+}
+
+.md-title {
+    display: block;
+    margin-top: 6px;
+    color: var(--gold-dark);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: .22em;
+    text-transform: uppercase;
+}
+
+.md-quote {
+    position: relative;
+    margin: 0;
+    padding-left: clamp(0px, 4vw, 56px);
+}
+
+/* A large gold opening quote mark behind the first lines. */
+.md-quote::before {
+    content: "\201C";
+    position: absolute;
+    top: -40px;
+    left: -8px;
+    color: var(--gold);
+    font-family: var(--font-serif);
+    font-size: 140px;
+    line-height: 1;
+    opacity: .35;
+    pointer-events: none;
+}
+
+.md-quote p {
+    position: relative;
     color: var(--text);
     font-size: 17px;
-    line-height: 1.65;
+    line-height: 1.75;
 }
 
-.fact-card {
-    height: 100%;
-    padding: 22px 24px;
-    border-top: 3px solid var(--ink);
-    background: var(--cream);
+.md-quote p:last-child {
+    margin-bottom: 0;
 }
 
-.fact-card-gold {
-    border-top-color: var(--gold);
+.md-quote .md-lead {
+    margin-bottom: 24px;
+    color: var(--ink);
+    font-family: var(--font-serif);
+    font-size: clamp(24px, 2.4vw, 30px);
+    line-height: 1.35;
 }
 
-.fact-card h3 {
-    margin-bottom: 8px;
-    font-size: 26px;
-}
+@media (max-width: 767.98px) {
+    .md-figure {
+        max-width: 280px;
+    }
 
-.fact-card p {
-    margin: 0;
-    color: var(--text-soft);
-    font-size: 15px;
-    line-height: 1.7;
+    /* The quote mark sits above the text instead of beside it. */
+    .md-quote {
+        padding: 44px 0 0;
+    }
+
+    .md-quote::before {
+        top: -24px;
+        left: -6px;
+        font-size: 110px;
+    }
 }
 
 /* Services */
@@ -1182,13 +1264,11 @@ main {
 
     /* Hover movement */
     .service-card,
-    .fact-card,
     .office-card {
         transition: transform .35s cubic-bezier(.22, 1, .36, 1), box-shadow .35s;
     }
 
     .service-card:hover,
-    .fact-card:hover,
     .office-card:hover {
         box-shadow: 0 18px 40px rgba(14, 14, 16, .14);
         transform: translateY(-5px);

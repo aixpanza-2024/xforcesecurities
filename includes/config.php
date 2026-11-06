@@ -12,6 +12,11 @@ const PHONE_LINK    = 'tel:+917012372501';
 const WHATSAPP_LINK = 'https://wa.me/917012372501';
 const EMAIL         = 'info@xforcesecurities.com';
 
+// Shown with the message in the About section. The photo goes in
+// assets/images/managing-director.jpg (or .png / .webp).
+const MD_NAME  = 'Jyothi Krishnan';
+const MD_TITLE = 'Managing Director';
+
 // Enquiry form: every enquiry is saved to ENQUIRY_FILE, then emailed to ENQUIRY_EMAIL.
 const ENQUIRY_FILE  = __DIR__ . '/../data/enquiries.csv';
 const ENQUIRY_EMAIL = EMAIL;
