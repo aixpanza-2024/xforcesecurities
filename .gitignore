@@ -1,0 +1,3 @@
+# Saved enquiries hold customer names and phone numbers. Keep them off GitHub.
+data/*
+!data/.htaccess

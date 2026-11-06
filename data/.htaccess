@@ -1,0 +1,2 @@
+# Saved enquiries contain customer details and must never be served to visitors.
+Require all denied
