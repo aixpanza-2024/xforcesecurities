@@ -468,42 +468,23 @@ a {
 }
 
 /* About: message from the Managing Director */
-.md-figure {
-    max-width: 360px;
-    margin: 0 auto;
+.md-message {
+    margin: 0;
 }
 
-.md-photo {
-    padding: 12px;
-    border: 1px solid var(--line-strong);
+/* Name and designation sign off the message, under a short gold rule. */
+.md-signature {
+    margin-top: 32px;
+    padding-left: clamp(0px, 4vw, 56px);
 }
 
-.md-photo img,
-.md-photo-placeholder {
+.md-signature::before {
+    content: "";
     display: block;
-    width: 100%;
-    aspect-ratio: 4 / 5;
-    border-bottom: 4px solid var(--gold);
-}
-
-.md-photo img {
-    object-fit: cover;
-}
-
-.md-photo-placeholder {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background:
-        radial-gradient(circle at 50% 120%, rgba(201, 151, 58, .25), transparent 60%),
-        var(--ink);
-    color: #4a4a52;
-    font-size: clamp(96px, 12vw, 140px);
-}
-
-.md-figure figcaption {
-    padding-top: 20px;
-    text-align: center;
+    width: 48px;
+    height: 2px;
+    margin-bottom: 18px;
+    background: var(--gold);
 }
 
 .md-name {
@@ -563,13 +544,13 @@ a {
 }
 
 @media (max-width: 767.98px) {
-    .md-figure {
-        max-width: 280px;
-    }
-
     /* The quote mark sits above the text instead of beside it. */
     .md-quote {
         padding: 44px 0 0;
+    }
+
+    .md-signature {
+        padding-left: 0;
     }
 
     .md-quote::before {
@@ -709,7 +690,7 @@ a {
 .client-track {
     display: flex;
     width: max-content;
-    animation: client-scroll 90s linear infinite;
+    animation: client-scroll 45s linear infinite;
 }
 
 .client-marquee:hover .client-track,
@@ -744,12 +725,16 @@ a {
     align-items: center;
     justify-content: center;
     flex: none;
-    width: 98px;
-    height: 74px;
-    border: 1px dashed #4a4a52;
-    background: #232328;
-    color: #a9a9b1;
-    font-size: 28px;
+    width: 100%;
+    height: 104px;
+}
+
+/* Logos keep their own background and proportions, centred in the same box. */
+.client-logo img {
+    max-width: 100%;
+    max-height: 100%;
+    border-radius: 3px;
+    object-fit: contain;
 }
 
 .client-name {
@@ -797,21 +782,53 @@ a {
 }
 
 .client-group {
-    columns: 2;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
     margin: 0;
     padding: 0;
-    color: var(--text);
     list-style: none;
 }
 
-.client-group li {
-    padding-block: 3px;
-    break-inside: avoid;
+.client-tile {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    min-height: 64px;
+    padding: 10px 14px;
+    border: 1px solid var(--line);
+    background: var(--cream);
+    color: var(--ink);
+    font-size: 15px;
+    font-weight: 600;
+    line-height: 1.35;
+}
+
+.client-tile-mark {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex: none;
+    width: 64px;
+    height: 44px;
+    background: #fff;
+    border: 1px solid var(--line);
+}
+
+.client-tile-mark img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
+
+.client-tile-icon {
+    color: var(--gold-dark);
+    font-size: 20px;
 }
 
 @media (max-width: 575.98px) {
     .client-group {
-        columns: 1;
+        grid-template-columns: 1fr;
     }
 }
 

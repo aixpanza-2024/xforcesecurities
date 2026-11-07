@@ -12,8 +12,7 @@ const PHONE_LINK    = 'tel:+917012372501';
 const WHATSAPP_LINK = 'https://wa.me/917012372501';
 const EMAIL         = 'info@xforcesecurities.com';
 
-// Shown with the message in the About section. The photo goes in
-// assets/images/managing-director.jpg (or .png / .webp).
+// Signs off the Managing Director's message in the About section.
 const MD_NAME  = 'Jyothi Krishnan';
 const MD_TITLE = 'Managing Director';
 
@@ -92,6 +91,21 @@ $clientGroups = [
     'Hospitality & Corporate' => ['Hotel Olivia International', 'Hotel Railview', 'Regency Group of Companies', 'TSCB Bank'],
     'Retail & Malls'         => ['Swayamwara', 'RK Wedding Mall', 'Mayoori Furniture and Electronics', 'Kunnil Hyper Market', 'Mall of Choice', 'NC Mall', 'Luxon Tata', 'QRS Retail Limited'],
     'Residential & Others'   => ['Sree Dhanya', 'Cotman Gardens', 'Nila Apartments'],
+];
+
+// Client logos, in assets/images/clients/. A client without one shows a placeholder.
+$clientLogos = [
+    'TSC Hospital'               => 'tsc-hospital.jpg',
+    'YANS Medical Institute'     => 'yans-medical-institute.jpg',
+    'Amrita Vishwa Vidyapeetham' => 'amrita-vishwa-vidyapeetham.jpg',
+    'Sree Sankara Trust'         => 'sree-sankara.jpg',
+    'Hotel Olivia International' => 'hotel-olivia-international.jpg',
+    'Hotel Railview'             => 'hotel-railview.jpg',
+    'RK Wedding Mall'            => 'rk-wedding-mall.jpg',
+    'Kunnil Hyper Market'        => 'kunnil.jpg',
+    'Mall of Choice'             => 'the-choice-mall.jpg',
+    'Luxon Tata'                 => 'luxon-tata.jpg',
+    'QRS Retail Limited'         => 'qrs.jpg',
 ];
 
 /** Escape a value for HTML output. */

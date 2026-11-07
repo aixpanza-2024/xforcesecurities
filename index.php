@@ -16,16 +16,11 @@ $errors    = $result['errors'] ?? [];
 $oldValue  = fn (string $key): string => e($old[$key] ?? '');
 $isInvalid = fn (string $key): string => isset($errors[$key]) ? ' is-invalid' : '';
 
-$clients = array_merge(...array_values($clientGroups));
-
-// The Managing Director's photo is shown once a file is added at this path.
-$mdPhoto = null;
-foreach (['jpg', 'jpeg', 'png', 'webp'] as $extension) {
-    if (is_file(__DIR__ . "/assets/images/managing-director.$extension")) {
-        $mdPhoto = "assets/images/managing-director.$extension";
-        break;
-    }
-}
+// The scrolling strip shows only clients with a logo; "View all clients" lists everyone.
+$logoClients = array_values(array_filter(
+    array_merge(...array_values($clientGroups)),
+    fn (string $client): bool => isset($clientLogos[$client])
+));
 ?>
 <!doctype html>
 <html lang="en">
@@ -121,30 +116,24 @@ foreach (['jpg', 'jpeg', 'png', 'webp'] as $extension) {
     <!-- About: message from the Managing Director -->
     <section class="section" id="about">
         <div class="container">
-            <div class="row gy-5 align-items-center">
+            <div class="row gy-5">
                 <div class="col-lg-4" data-reveal="from-left">
-                    <figure class="md-figure">
-                        <div class="md-photo">
-                            <?php if ($mdPhoto): ?>
-                                <img src="<?= e($mdPhoto) ?>" alt="<?= e(MD_NAME) ?>, <?= e(MD_TITLE) ?>" loading="lazy">
-                            <?php else: ?>
-                                <span class="md-photo-placeholder" aria-hidden="true"><i class="bi bi-person"></i></span>
-                            <?php endif; ?>
-                        </div>
-                        <figcaption>
+                    <p class="eyebrow">About Us</p>
+                    <h2 class="section-title">Message from the Managing Director</h2>
+                </div>
+                <div class="col-lg-7 offset-lg-1" data-reveal="from-right" style="--i: 1">
+                    <figure class="md-message">
+                        <blockquote class="md-quote">
+                            <p class="md-lead">At X FORCE Securities and Facility Management, we believe that trust, discipline and commitment are the foundation of every successful service relationship.</p>
+                            <p>With our roots in the security industry dating back to 2007, we have built our journey around understanding our clients’ needs and delivering dependable manpower and facility management solutions.</p>
+                            <p>Our commitment is to provide professional, responsible and reliable services while maintaining the highest standards of integrity and customer satisfaction.</p>
+                            <p>We sincerely thank our clients, employees and well-wishers for their continued trust and support. We look forward to building stronger partnerships and serving you better.</p>
+                        </blockquote>
+                        <figcaption class="md-signature">
                             <span class="md-name"><?= e(MD_NAME) ?></span>
                             <span class="md-title"><?= e(MD_TITLE) ?></span>
                         </figcaption>
                     </figure>
-                </div>
-                <div class="col-lg-7 offset-lg-1" data-reveal="from-right" style="--i: 1">
-                    <p class="eyebrow eyebrow-line">Message from the Managing Director</p>
-                    <blockquote class="md-quote">
-                        <p class="md-lead">At X FORCE Securities and Facility Management, we believe that trust, discipline and commitment are the foundation of every successful service relationship.</p>
-                        <p>With our roots in the security industry dating back to 2007, we have built our journey around understanding our clients’ needs and delivering dependable manpower and facility management solutions.</p>
-                        <p>Our commitment is to provide professional, responsible and reliable services while maintaining the highest standards of integrity and customer satisfaction.</p>
-                        <p>We sincerely thank our clients, employees and well-wishers for their continued trust and support. We look forward to building stronger partnerships and serving you better.</p>
-                    </blockquote>
                 </div>
             </div>
         </div>
@@ -217,9 +206,9 @@ foreach (['jpg', 'jpeg', 'png', 'webp'] as $extension) {
             <div class="client-track">
                 <?php foreach ([false, true] as $isCopy): // Two identical lists make the scroll loop seamless. ?>
                     <ul class="client-list"<?= $isCopy ? ' aria-hidden="true"' : '' ?>>
-                        <?php foreach ($clients as $client): ?>
+                        <?php foreach ($logoClients as $client): ?>
                             <li class="client-card">
-                                <span class="client-logo"><i class="bi bi-image" aria-hidden="true"></i></span>
+                                <span class="client-logo"><img src="assets/images/clients/<?= e($clientLogos[$client]) ?>" alt="" loading="lazy"></span>
                                 <span class="client-name"><?= e($client) ?></span>
                             </li>
                         <?php endforeach; ?>
@@ -438,7 +427,14 @@ foreach (['jpg', 'jpeg', 'png', 'webp'] as $extension) {
                     <h3 class="eyebrow client-group-title"><?= e($group) ?></h3>
                     <ul class="client-group">
                         <?php foreach ($names as $name): ?>
-                            <li><?= e($name) ?></li>
+                            <li class="client-tile">
+                                <?php if (isset($clientLogos[$name])): ?>
+                                    <span class="client-tile-mark"><img src="assets/images/clients/<?= e($clientLogos[$name]) ?>" alt="" loading="lazy"></span>
+                                <?php else: ?>
+                                    <span class="client-tile-mark client-tile-icon"><i class="bi bi-shield-check" aria-hidden="true"></i></span>
+                                <?php endif; ?>
+                                <span><?= e($name) ?></span>
+                            </li>
                         <?php endforeach; ?>
                     </ul>
                 <?php endforeach; ?>
